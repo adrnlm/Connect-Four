@@ -24,48 +24,48 @@ class StudentAgent(RandomAgent):
         for move in valid_moves:
             next_state = board.next_state(self.id, move[1])
             moves.append(move)
-            vals.append(self.dfMiniMax(next_state, 1, math.inf, -math.inf))
+            vals.append(self.dfMiniMax(next_state, 1))
 
         bestMove = moves[vals.index(max(vals))]
         return bestMove
 
-    def dfMiniMax(self, board, depth, alpha, beta):
+    def dfMiniMax(self, board, depth):
         # Goal return column with maximized scores of all possible next states
 
         if depth == self.MaxDepth:
             return self.evaluateBoardState(board)
 
         valid_moves = board.valid_moves()
-        # vals = []
-        # moves = []
+        vals = []
+        moves = []
 
         for move in valid_moves:
             if depth % 2 == 1:
                 next_state = board.next_state(self.id % 2 + 1, move[1])
-                value = -math.inf
-                value = max(value, self.dfMiniMax(next_state, depth + 1, alpha, beta))
-                alpha = max(alpha, value)
-                if alpha >= beta:
-                    break
-                return value
+                # value = -math.inf
+                # value = max(value, self.dfMiniMax(next_state, depth + 1, alpha, beta))
+                # alpha = max(alpha, value)
+                # if alpha >= beta:
+                #     break
+                # return value
             else:
                 next_state = board.next_state(self.id, move[1])
-                value = math.inf
-                value = min(value, self.dfMiniMax(next_state, depth + 1, alpha, beta))
-                beta = min(beta, value)
-                if alpha >= beta:
-                    break
-                return value
+                # value = math.inf
+                # value = min(value, self.dfMiniMax(next_state, depth + 1, alpha, beta))
+                # beta = min(beta, value)
+                # if alpha >= beta:
+                #     break
+                # return value
 
-        #     moves.append(move)
-        #     vals.append(self.dfMiniMax(next_state, depth + 1))
-        #
-        # if depth % 2 == 1:
-        #     bestVal = min(vals)
-        # else:
-        #     bestVal = max(vals)
-        #
-        # return bestVal
+            moves.append(move)
+            vals.append(self.dfMiniMax(next_state, depth + 1))
+
+        if depth % 2 == 1:
+            bestVal = min(vals)
+        else:
+            bestVal = max(vals)
+
+        return bestVal
 
     def evaluateBoardState(self, board):
         """
