@@ -249,6 +249,7 @@ class Board(object):
         #    current_state->score[other_player] = 0;
         # }
 
+
     def _build_winning_zones_map(self):
         size_y = self.height
         size_x = self.width

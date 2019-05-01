@@ -6,7 +6,7 @@ import math
 class StudentAgent(RandomAgent):
     def __init__(self, name):
         super().__init__(name)
-        self.MaxDepth = 10
+        self.MaxDepth = 3
 
     def get_move(self, board):
         """
@@ -43,16 +43,8 @@ class StudentAgent(RandomAgent):
             if depth % 2 == 1:
                 next_state = board.next_state(self.id % 2 + 1, move[1])
                 value = math.inf
-                print("INITIAL")
-                print(alpha)
-                print(beta)
-                print(value)
-                print("===============")
                 value = min(value, self.dfMiniMax(next_state, depth + 1, alpha, beta))
-                print(value)
-                print("===============")
                 beta = min(beta, value)
-                print(beta)
                 if alpha >= beta:
                     break
                 # return value
@@ -108,11 +100,74 @@ class StudentAgent(RandomAgent):
             winner()
         """
 
-        if board.winner() == self.id:
-            print("FOUND WINNER")
-            return 1
-        if board.winner() == 0:
-            print("FOUND DRAW")
-            return random.uniform(0, 1)
-        print("FOUND LOOSER")
-        return -1
+
+        score = 0
+
+        #HORIZONTAL CHECKING
+        for r in range(board.height-1, -1, -1):
+            row_array = board.board[r]
+            for c in range(board.width-3):
+                window = row_array[c:c+4]
+
+                if window.count(self.id)==4:
+                    score += 999
+                if window.count(self.id) == 3 and window.count(0) == 1:
+                    score += 100
+                if window.count(self.id%2 + 1)==4:
+                    score -= 999
+                if window.count(self.id%2 + 1) == 3 and window.count(0) == 1:
+                    score -= 200
+                else:
+                    score += random.uniform(0, 1)
+
+        #VERTICAL CHECKING
+        for c in range(board.width):
+            col_array = board.board[:c]
+            for r in range(board.height-4, -1, -1):
+                window = col_array[r:r+4]
+
+                if window.count(self.id)==4:
+                    score += 999
+                if window.count(self.id) == 3 and window.count(0) == 1:
+                    score += 100
+                if window.count(self.id%2 + 1)==4:
+                    score -= 999
+                if window.count(self.id%2 + 1) == 3 and window.count(0) == 1:
+                    score -= 200
+                else:
+                    score += random.uniform(0, 1)
+
+        #DIAGONAL CHECKING (POSITIVE)
+        for r in range(board.height-4, -1, -1):
+            for c in range(board.width-3):
+                window = [board.board[r+i][c+i] for i in range(4)]
+
+                if window.count(self.id)==4:
+                    score += 999
+                if window.count(self.id) == 3 and window.count(0) == 1:
+                    score += 100
+                if window.count(self.id%2 + 1)==4:
+                    score -= 999
+                if window.count(self.id%2 + 1) == 3 and window.count(0) == 1:
+                    score -= 200
+                else:
+                    score += random.uniform(0, 1)
+
+        #DIAGONAL CHECKING (NEGATIVE)
+        for r in range(board.height-4, -1, -1):
+            for c in range(board.width-3):
+                window = [board.board[r+3-i][c+i] for i in range(4)]
+
+                if window.count(self.id)==4:
+                    score += 999
+                if window.count(self.id) == 3 and window.count(0) == 1:
+                    score += 100
+                if window.count(self.id%2 + 1)==4:
+                    score -= 999
+                if window.count(self.id%2 + 1) == 3 and window.count(0) == 1:
+                    score -= 200
+                else:
+                    score += random.uniform(0, 1)
+
+        print("SCORE: " + str(score))
+        return score
