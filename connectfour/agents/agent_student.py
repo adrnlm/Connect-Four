@@ -6,7 +6,7 @@ import math
 class StudentAgent(RandomAgent):
     def __init__(self, name):
         super().__init__(name)
-        self.MaxDepth = 3
+        self.MaxDepth = 4
 
     def get_move(self, board):
         """
@@ -36,8 +36,6 @@ class StudentAgent(RandomAgent):
             return self.evaluateBoardState(board)
 
         valid_moves = board.valid_moves()
-        # vals = []
-        # moves = []
 
         for move in valid_moves:
             if depth % 2 == 1:
@@ -55,17 +53,7 @@ class StudentAgent(RandomAgent):
                 alpha = max(alpha, value)
                 if alpha >= beta:
                     break
-                # return value
             return value
-        #     moves.append(move)
-        #     vals.append(self.dfMiniMax(next_state, depth + 1))
-        #
-        # if depth % 2 == 1:
-        #     bestVal = min(vals)
-        # else:
-        #     bestVal = max(vals)
-        #
-        # return bestVal
 
     def evaluateBoardState(self, board):
         """
@@ -110,15 +98,16 @@ class StudentAgent(RandomAgent):
                 window = row_array[c:c+4]
 
                 if window.count(self.id)==4:
-                    score += 999
-                if window.count(self.id) == 3 and window.count(0) == 1:
                     score += 100
+                if window.count(self.id) == 3 and window.count(0) == 1:
+                    score += 10
+                if window.count(self.id) == 2 and window.count(0) == 2:
+                    score += 5
                 if window.count(self.id%2 + 1)==4:
-                    score -= 999
+                    score -= 100
                 if window.count(self.id%2 + 1) == 3 and window.count(0) == 1:
-                    score -= 200
-                else:
-                    score += random.uniform(0, 1)
+                    score -= 80
+                
 
         #VERTICAL CHECKING
         for c in range(board.width):
@@ -127,15 +116,16 @@ class StudentAgent(RandomAgent):
                 window = col_array[r:r+4]
 
                 if window.count(self.id)==4:
-                    score += 999
-                if window.count(self.id) == 3 and window.count(0) == 1:
                     score += 100
+                if window.count(self.id) == 3 and window.count(0) == 1:
+                    score += 10
+                if window.count(self.id) == 2 and window.count(0) == 2:
+                    score += 5
                 if window.count(self.id%2 + 1)==4:
-                    score -= 999
+                    score -= 100
                 if window.count(self.id%2 + 1) == 3 and window.count(0) == 1:
-                    score -= 200
-                else:
-                    score += random.uniform(0, 1)
+                    score -= 80
+                
 
         #DIAGONAL CHECKING (POSITIVE)
         for r in range(board.height-4, -1, -1):
@@ -143,15 +133,17 @@ class StudentAgent(RandomAgent):
                 window = [board.board[r+i][c+i] for i in range(4)]
 
                 if window.count(self.id)==4:
-                    score += 999
-                if window.count(self.id) == 3 and window.count(0) == 1:
                     score += 100
+                if window.count(self.id) == 3 and window.count(0) == 1:
+                    score += 10
+                if window.count(self.id) == 2 and window.count(0) == 2:
+                    score += 5
                 if window.count(self.id%2 + 1)==4:
-                    score -= 999
+                    score -= 100
                 if window.count(self.id%2 + 1) == 3 and window.count(0) == 1:
-                    score -= 200
+                    score -= 80
                 else:
-                    score += random.uniform(0, 1)
+                    score += random.uniform(0, 10)
 
         #DIAGONAL CHECKING (NEGATIVE)
         for r in range(board.height-4, -1, -1):
@@ -159,15 +151,16 @@ class StudentAgent(RandomAgent):
                 window = [board.board[r+3-i][c+i] for i in range(4)]
 
                 if window.count(self.id)==4:
-                    score += 999
-                if window.count(self.id) == 3 and window.count(0) == 1:
                     score += 100
+                if window.count(self.id) == 3 and window.count(0) == 1:
+                    score += 10
+                if window.count(self.id) == 2 and window.count(0) == 2:
+                    score += 5
                 if window.count(self.id%2 + 1)==4:
-                    score -= 999
+                    score -= 100
                 if window.count(self.id%2 + 1) == 3 and window.count(0) == 1:
-                    score -= 200
-                else:
-                    score += random.uniform(0, 1)
+                    score -= 80
+                
 
         print("SCORE: " + str(score))
         return score
