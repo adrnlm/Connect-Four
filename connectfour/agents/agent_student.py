@@ -45,7 +45,6 @@ class StudentAgent(RandomAgent):
                 beta = min(beta, value)
                 if alpha >= beta:
                     break
-                # return value
             else:
                 next_state = board.next_state(self.id, move[1])
                 value = -math.inf
@@ -126,8 +125,6 @@ class StudentAgent(RandomAgent):
                     score -= 100
                 if window.count(self.id%2 + 1) == 3 and window.count(0) == 1:
                     score -= 80
-
-
 
 
         #DIAGONAL CHECKING (POSITIVE)
