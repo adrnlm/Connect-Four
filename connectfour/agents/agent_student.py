@@ -113,7 +113,7 @@ class StudentAgent(RandomAgent):
             if row_array[1] == (self.id%2 +1):
                 score -= 1
             if row_array[5] == (self.id%2 +1):
-                score -= 1
+                score -= 2
 
         #HORIZONTAL CHECKING
         for r in range(board.height-1, -1, -1):
@@ -127,6 +127,8 @@ class StudentAgent(RandomAgent):
                     score += 20
                 if window.count(self.id) == 2 and window.count(0) == 2:
                     score += 5
+                if window.count(self.id%2 + 1)==4:
+                    score -= 200
                 if window.count(self.id%2 + 1) == 3 and window.count(0) == 1:
                     score -= 80
                 if window.count(self.id%2 + 1) == 2 and window.count(0) == 2:
@@ -144,10 +146,10 @@ class StudentAgent(RandomAgent):
                     score += 20
                 if window.count(self.id) == 2 and window.count(0) == 2:
                     score += 5
+                if window.count(self.id%2 + 1)==4:
+                    score -= 200
                 if window.count(self.id%2 + 1) == 3 and window.count(0) == 1:
                     score -= 80
-                if window.count(self.id%2 + 1) == 2 and window.count(0) == 2:
-                    score -= 10
 
 
         #DIAGONAL CHECKING (POSITIVE)
@@ -161,10 +163,10 @@ class StudentAgent(RandomAgent):
                     score += 20
                 if window.count(self.id) == 2 and window.count(0) == 2:
                     score += 5
+                if window.count(self.id%2 + 1)==4:
+                    score -= 200
                 if window.count(self.id%2 + 1) == 3 and window.count(0) == 1:
                     score -= 80
-                if window.count(self.id%2 + 1) == 2 and window.count(0) == 2:
-                    score -= 10
 
         #DIAGONAL CHECKING (NEGATIVE)
         for r in range(board.height-3):
@@ -177,9 +179,9 @@ class StudentAgent(RandomAgent):
                     score += 20
                 if window.count(self.id) == 2 and window.count(0) == 2:
                     score += 5
+                if window.count(self.id%2 + 1)==4:
+                    score -= 200
                 if window.count(self.id%2 + 1) == 3 and window.count(0) == 1:
                     score -= 80
-                if window.count(self.id%2 + 1) == 2 and window.count(0) == 2:
-                    score -= 10
 
         return score
