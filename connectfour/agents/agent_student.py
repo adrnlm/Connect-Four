@@ -107,28 +107,36 @@ class StudentAgent(RandomAgent):
                     score -= 100
                 if window.count(self.id%2 + 1) == 3 and window.count(0) == 1:
                     score -= 80
-                
+                if window.count(self.id%2 + 1) == 2 and window.count(0) == 2:
+                    score -= 10
 
         #VERTICAL CHECKING
         for c in range(board.width):
-            col_array = board.board[:c]
-            for r in range(board.height-4, -1, -1):
+            col_array = [board.board[r][c] for r in range(board.height)]
+            print("====================")
+            print(col_array)
+            for r in range(board.height-3):
                 window = col_array[r:r+4]
 
                 if window.count(self.id)==4:
-                    score += 100
+                    print("HIGHER !!!!!!!!!!!!")
+                    score += 200
                 if window.count(self.id) == 3 and window.count(0) == 1:
                     score += 10
                 if window.count(self.id) == 2 and window.count(0) == 2:
                     score += 5
                 if window.count(self.id%2 + 1)==4:
+                    print("NOOOOOOOO")
                     score -= 100
                 if window.count(self.id%2 + 1) == 3 and window.count(0) == 1:
+                    print("ALMOSTTTT")
                     score -= 80
-                
+
+
+
 
         #DIAGONAL CHECKING (POSITIVE)
-        for r in range(board.height-4, -1, -1):
+        for r in range(board.height-3):
             for c in range(board.width-3):
                 window = [board.board[r+i][c+i] for i in range(4)]
 
@@ -142,11 +150,9 @@ class StudentAgent(RandomAgent):
                     score -= 100
                 if window.count(self.id%2 + 1) == 3 and window.count(0) == 1:
                     score -= 80
-                else:
-                    score += random.uniform(0, 10)
 
         #DIAGONAL CHECKING (NEGATIVE)
-        for r in range(board.height-4, -1, -1):
+        for r in range(board.height-3):
             for c in range(board.width-3):
                 window = [board.board[r+3-i][c+i] for i in range(4)]
 
@@ -157,10 +163,9 @@ class StudentAgent(RandomAgent):
                 if window.count(self.id) == 2 and window.count(0) == 2:
                     score += 5
                 if window.count(self.id%2 + 1)==4:
-                    score -= 100
+                    score -= 10
                 if window.count(self.id%2 + 1) == 3 and window.count(0) == 1:
                     score -= 80
-                
 
         print("SCORE: " + str(score))
         return score
