@@ -127,8 +127,6 @@ class StudentAgent(RandomAgent):
                     score += 20
                 if window.count(self.id) == 2 and window.count(0) == 2:
                     score += 5
-                if window.count(self.id%2 + 1)==4:
-                    score -= 100
                 if window.count(self.id%2 + 1) == 3 and window.count(0) == 1:
                     score -= 80
                 if window.count(self.id%2 + 1) == 2 and window.count(0) == 2:
@@ -146,10 +144,10 @@ class StudentAgent(RandomAgent):
                     score += 20
                 if window.count(self.id) == 2 and window.count(0) == 2:
                     score += 5
-                if window.count(self.id%2 + 1)==4:
-                    score -= 100
                 if window.count(self.id%2 + 1) == 3 and window.count(0) == 1:
                     score -= 80
+                if window.count(self.id%2 + 1) == 2 and window.count(0) == 2:
+                    score -= 10
 
 
         #DIAGONAL CHECKING (POSITIVE)
@@ -163,10 +161,10 @@ class StudentAgent(RandomAgent):
                     score += 20
                 if window.count(self.id) == 2 and window.count(0) == 2:
                     score += 5
-                if window.count(self.id%2 + 1)==4:
-                    score -= 100
                 if window.count(self.id%2 + 1) == 3 and window.count(0) == 1:
                     score -= 80
+                if window.count(self.id%2 + 1) == 2 and window.count(0) == 2:
+                    score -= 10
 
         #DIAGONAL CHECKING (NEGATIVE)
         for r in range(board.height-3):
@@ -179,9 +177,9 @@ class StudentAgent(RandomAgent):
                     score += 20
                 if window.count(self.id) == 2 and window.count(0) == 2:
                     score += 5
-                if window.count(self.id%2 + 1)==4:
-                    score -= 10
                 if window.count(self.id%2 + 1) == 3 and window.count(0) == 1:
                     score -= 80
+                if window.count(self.id%2 + 1) == 2 and window.count(0) == 2:
+                    score -= 10
 
         return score
