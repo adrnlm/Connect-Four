@@ -113,23 +113,18 @@ class StudentAgent(RandomAgent):
         #VERTICAL CHECKING
         for c in range(board.width):
             col_array = [board.board[r][c] for r in range(board.height)]
-            print("====================")
-            print(col_array)
             for r in range(board.height-3):
                 window = col_array[r:r+4]
 
                 if window.count(self.id)==4:
-                    print("HIGHER !!!!!!!!!!!!")
                     score += 200
                 if window.count(self.id) == 3 and window.count(0) == 1:
                     score += 10
                 if window.count(self.id) == 2 and window.count(0) == 2:
                     score += 5
                 if window.count(self.id%2 + 1)==4:
-                    print("NOOOOOOOO")
                     score -= 100
                 if window.count(self.id%2 + 1) == 3 and window.count(0) == 1:
-                    print("ALMOSTTTT")
                     score -= 80
 
 
