@@ -90,6 +90,31 @@ class StudentAgent(RandomAgent):
 
         score = 0
 
+        #MIDDLE PREFERENCE
+        for r in range(board.height-1, -1, -1):
+            row_array = board.board[r]
+
+            if row_array[3] == (self.id):
+                score += 3
+            if row_array[2] == (self.id):
+                score += 2
+            if row_array[4] == (self.id):
+                score += 2
+            if row_array[1] == (self.id):
+                score += 1
+            if row_array[5] == (self.id):
+                score += 1
+            if row_array[3] == (self.id%2 +1):
+                score -= 3
+            if row_array[2] == (self.id%2 +1):
+                score -= 2
+            if row_array[4] == (self.id%2 +1):
+                score -= 2
+            if row_array[1] == (self.id%2 +1):
+                score -= 1
+            if row_array[5] == (self.id%2 +1):
+                score -= 1
+
         #HORIZONTAL CHECKING
         for r in range(board.height-1, -1, -1):
             row_array = board.board[r]
@@ -99,7 +124,7 @@ class StudentAgent(RandomAgent):
                 if window.count(self.id)==4:
                     score += 100
                 if window.count(self.id) == 3 and window.count(0) == 1:
-                    score += 10
+                    score += 20
                 if window.count(self.id) == 2 and window.count(0) == 2:
                     score += 5
                 if window.count(self.id%2 + 1)==4:
@@ -118,7 +143,7 @@ class StudentAgent(RandomAgent):
                 if window.count(self.id)==4:
                     score += 100
                 if window.count(self.id) == 3 and window.count(0) == 1:
-                    score += 10
+                    score += 20
                 if window.count(self.id) == 2 and window.count(0) == 2:
                     score += 5
                 if window.count(self.id%2 + 1)==4:
@@ -135,7 +160,7 @@ class StudentAgent(RandomAgent):
                 if window.count(self.id)==4:
                     score += 100
                 if window.count(self.id) == 3 and window.count(0) == 1:
-                    score += 10
+                    score += 20
                 if window.count(self.id) == 2 and window.count(0) == 2:
                     score += 5
                 if window.count(self.id%2 + 1)==4:
@@ -151,7 +176,7 @@ class StudentAgent(RandomAgent):
                 if window.count(self.id)==4:
                     score += 100
                 if window.count(self.id) == 3 and window.count(0) == 1:
-                    score += 10
+                    score += 20
                 if window.count(self.id) == 2 and window.count(0) == 2:
                     score += 5
                 if window.count(self.id%2 + 1)==4:
