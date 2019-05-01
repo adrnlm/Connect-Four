@@ -117,7 +117,7 @@ class StudentAgent(RandomAgent):
                 window = col_array[r:r+4]
 
                 if window.count(self.id)==4:
-                    score += 200
+                    score += 100
                 if window.count(self.id) == 3 and window.count(0) == 1:
                     score += 10
                 if window.count(self.id) == 2 and window.count(0) == 2:
@@ -162,5 +162,4 @@ class StudentAgent(RandomAgent):
                 if window.count(self.id%2 + 1) == 3 and window.count(0) == 1:
                     score -= 80
 
-        print("SCORE: " + str(score))
         return score
