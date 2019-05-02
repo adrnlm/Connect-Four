@@ -45,18 +45,14 @@ class StudentAgent(RandomAgent):
             if depth % 2 == 1:
                 next_state = board.next_state(self.id % 2 + 1, move[1])
                 value = math.inf
-                print("1:" + str(value))
                 value = min(value, self.dfMiniMax(next_state, depth + 1, alpha, beta))
-                print("2:" + str(value))
                 beta = min(beta, value)
                 if alpha >= beta:
                     break
             else:
                 next_state = board.next_state(self.id, move[1])
                 value = -math.inf
-                print("3:" + str(value))
                 value = max(value, self.dfMiniMax(next_state, depth + 1, alpha, beta))
-                print("4:" + str(value))
                 alpha = max(alpha, value)
                 if alpha >= beta:
                     break
@@ -64,28 +60,6 @@ class StudentAgent(RandomAgent):
             result = value
             return result
         return result
-
-        # #==================
-        # vals = []
-        # moves = []
-        # for move in valid_moves:
-        #     if depth % 2 == 1:
-        #         next_state = board.next_state(self.id % 2 + 1, move[1])
-        #     else:
-        #         next_state = board.next_state(self.id, move[1])
-        #
-        #     moves.append( move )
-        #     vals.append( self.dfMiniMax(next_state, depth + 1) )
-        #
-        # # if move == 0:
-        # #     return 0;
-        #
-        # if depth % 2 == 1:
-        #     bestVal = min(vals)
-        # else:
-        #     bestVal = max(vals)
-        #
-        # return bestVal
 
     def evaluateBoardState(self, board):
         """
@@ -125,6 +99,9 @@ class StudentAgent(RandomAgent):
 
         #MIDDLE PREFERENCE
         for r in range(board.height-1, -1, -1):
+            """
+            Favors the middlle columns more than the others because it is crucial for the few initial moves
+            """
             row_array = board.board[r]
 
             if row_array[3] == (self.id):
@@ -148,6 +125,10 @@ class StudentAgent(RandomAgent):
             if row_array[5] == (self.id%2 +1):
                 score -= 20
 
+
+        """
+        Below for loops are to iterate the respective rows, columns, and diagonals(positive or negative) and find 3 playerToken in a window of 4
+        """
         #HORIZONTAL CHECKING
         for r in range(board.height-1, -1, -1):
             row_array = [board.board[r][c] for c in range(board.width)]
