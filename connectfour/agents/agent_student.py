@@ -136,13 +136,13 @@ class StudentAgent(RandomAgent):
                 window = row_array[c:c+4]
 
                 if window.count(self.id)==4:
-                    score += 999
+                    score += math.inf
                 if window.count(self.id) == 3 and window.count(0) == 1:
                     score += (100*self.count_in_a_row(window, self.id, 3))
                 if window.count(self.id) == 2 and window.count(0) == 2:
                     score += (50*self.count_in_a_row(window, self.id, 2))
                 if window.count(self.id%2 + 1)==4:
-                    score -= 999
+                    score -= math.inf
                 if window.count(self.id%2 + 1) == 3 and window.count(0) == 1:
                     score -= (250*self.count_in_a_row(window, (self.id%2 +1), 3))
                 if window.count(self.id%2 + 1) == 2 and window.count(0) == 2:
@@ -155,13 +155,13 @@ class StudentAgent(RandomAgent):
                 window = col_array[r:r+4]
 
                 if window.count(self.id)==4:
-                    score += 999
+                    score += math.inf
                 if window.count(self.id) == 3 and window.count(0) == 1:
                     score += (130*self.count_in_a_row(window, self.id, 3))
                 if window.count(self.id) == 2 and window.count(0) == 2:
                     score += (50*self.count_in_a_row(window, self.id, 2))
                 if window.count(self.id%2 + 1)==4:
-                    score -= 999
+                    score -= math.inf
                 if window.count(self.id%2 + 1) == 3 and window.count(0) == 1:
                     score -= (250*self.count_in_a_row(window, (self.id%2 +1), 3))
                 if window.count(self.id%2 + 1) == 2 and window.count(0) == 2:
@@ -174,13 +174,13 @@ class StudentAgent(RandomAgent):
                 window = [board.board[r+i][c+i] for i in range(4)]
 
                 if window.count(self.id)==4:
-                    score += 999
+                    score += math.inf
                 if window.count(self.id) == 3 and window.count(0) == 1:
                     score += (160*self.count_in_a_row(window, self.id, 3))
                 if window.count(self.id) == 2 and window.count(0) == 2:
                     score += (50*self.count_in_a_row(window, self.id, 2))
                 if window.count(self.id%2 + 1)==4:
-                    score -= 999
+                    score -= math.inf
                 if window.count(self.id%2 + 1) == 3 and window.count(0) == 1:
                     score -= (250*self.count_in_a_row(window, (self.id%2 +1), 3))
                 if window.count(self.id%2 + 1) == 2 and window.count(0) == 2:
@@ -192,13 +192,13 @@ class StudentAgent(RandomAgent):
                 window = [board.board[r+3-i][c+i] for i in range(4)]
 
                 if window.count(self.id)==4:
-                    score += 999
+                    score += math.inf
                 if window.count(self.id) == 3 and window.count(0) == 1:
                     score += (160*self.count_in_a_row(window, self.id, 3))
                 if window.count(self.id) == 2 and window.count(0) == 2:
                     score += (50*self.count_in_a_row(window, self.id, 2))
                 if window.count(self.id%2 + 1)==4:
-                    score -= 999
+                    score -= math.inf
                 if window.count(self.id%2 + 1) == 3 and window.count(0) == 1:
                     score -= (250*self.count_in_a_row(window, (self.id%2 +1), 3))
                 if window.count(self.id%2 + 1) == 2 and window.count(0) == 2:
@@ -209,6 +209,10 @@ class StudentAgent(RandomAgent):
 
     #COUNTING HOW MANY IN A ROW
     def count_in_a_row(self, list, id, num):
+        """
+        This fucntion counts how many in a row are there and chooses the board with the most in a row eg:
+            [ xxx_ ]  will always be chosen over [ x_xx ]
+        """
         a = 0
         b = 0
         count = 0
